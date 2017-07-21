@@ -41,9 +41,12 @@ public:
     setCurrentNum(getCurrentNum() + i);
   }
   
+  string getPathByNum(int i) {
+      return baseFolder+"/setting"+ofToString(settingNum)+".xml";
+  }
   T getSettingByNum(int i) {
     T setting;
-    setting.load("");
+    setting.load(getPathByNum(i));
   }
   
   void add() {
@@ -52,12 +55,11 @@ public:
     load();
   }
   
-  //string getPathByNum(int i) { retrn  }
   void save(){
-    current.save(baseFolder+"/setting"+ofToString(settingNum)+".xml");
+    current.save(getPathByNum(getCurrentNum()));
   }
   void load() {
-    current.load(baseFolder+"/setting"+ofToString(settingNum)+".xml");
+    current.load(getPathByNum(getCurrentNum()));
   }
 };
 
