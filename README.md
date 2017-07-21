@@ -20,12 +20,22 @@ setting.save() // => 0.xmlをsave
 setting.setCurrentNum(1);
 setting.getCurrent().somethingTmethod(); // 1.xmlつかう
 setting.save() // => 1.xmlをsave
-
 ```
 
 みたいなかんじ
 
 ## todo
-- [ ] ファイル名を数字で判定するのをいい感じに
-- [ ] addいれる
-- [ ] コピーmethodつける?
+- ファイル名を数字で判定するのをいい感じに
+- addいれる
+- コピーとか複製methodつける?
+- settingの変更検知 -> ##event検知
+
+
+## event検知
+settingが変更したかどうかを持っていてほしい
+変更があったら色をつけて、セーブとか判断しやすくしたい
+- そもそもmultiSetting側じゃなくて個別のofParameterとかの責務？ -> multiSetting側は変更があったのboolさえとれればええや
+- T::addListener methodを持ってもらう ? Settingクラス側の設計をなるべく要求したくない
+  - saveとloadは要求してるけど
+  - traitsとか勉強してなんとかなるのでは
+addListner or ofEventを要求する感じではいいのでは
