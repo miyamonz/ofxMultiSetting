@@ -19,8 +19,11 @@ template<typename T>
 class ofxMultiSetting {
   static_assert(has_method_save<T>::value, "ofxMultiSetting parameter T must have void T::save(string) method");
   static_assert(has_method_load<T>::value, "ofxMultiSetting parameter T must have void T::load(string) method");
-public:
+  
+  bool bCurrentHasDiff;
   T current;
+
+public:
   ofParameter<int> settingNum;
   string baseFolder;
   ofxMultiSetting() {};
@@ -29,6 +32,7 @@ public:
     ofDirectory dir(base);
     int num = dir.listDir();
     settingNum.set("setting num", 0, 0, num-1);
+    bCurrentHasDiff = false;
   }
   
   T& getCurrent() { return current; }
@@ -41,8 +45,12 @@ public:
     setCurrentNum(getCurrentNum() + i);
   }
   
+  void onCurrentSettingChanged(){
+    bCurrentHasDiff = true;
+  }
+  
   string getPathByNum(int i) {
-      return baseFolder+"/setting"+ofToString(settingNum)+".xml";
+      return baseFolder+"/"+ofToString(settingNum)+".xml";
   }
   T getSettingByNum(int i) {
     T setting;
@@ -57,6 +65,7 @@ public:
   
   void save(){
     current.save(getPathByNum(getCurrentNum()));
+    bCurrentHasDiff = false;
   }
   void load() {
     current.load(getPathByNum(getCurrentNum()));
