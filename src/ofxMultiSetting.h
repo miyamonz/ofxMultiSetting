@@ -1,11 +1,11 @@
 #pragma once
 #include "ofMain.h"
 
-#define HAS_METHOD(func_name) \
+#define HAS_METHOD(FUNC_NAME) \
 template<typename T> \
-class has_method_##func_name { \
+class has_method_##FUNC_NAME { \
 private: template<typename U> \
-  static auto check( U v ) -> decltype( v.func_name (""), std::true_type() ); \
+  static auto check( U v ) -> decltype( v.FUNC_NAME (""), std::true_type() ); \
   static auto check( ... ) -> decltype(  std::false_type() ); \
 public: \
   typedef  decltype(check(std::declval<T>())) type; \
